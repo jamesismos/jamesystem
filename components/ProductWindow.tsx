@@ -1,7 +1,7 @@
 'use client'
 
 import type { Product } from '@/data/products'
-import { Shield, Car, Clock, ShoppingCart, Wrench, LayoutDashboard, Trophy, Brain, ExternalLink, Github, Heart } from 'lucide-react'
+import { Shield, Car, Clock, ShoppingCart, Wrench, LayoutDashboard, Trophy, Brain, ExternalLink, Github } from 'lucide-react'
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   LayoutDashboard,
@@ -131,19 +131,6 @@ export function ProductWindow({ product, index }: Props) {
           {product.status}
         </span>
         <span className="flex items-center gap-2">
-          {product.openSource && product.donate && (
-            <a
-              href={product.donate}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={stopProp}
-              className="flex items-center gap-1 text-[10px] text-product-red/70 hover:text-product-red font-mono transition-colors"
-              title="Apoiar o projeto"
-            >
-              <Heart className="w-3 h-3" />
-              Doar
-            </a>
-          )}
           {isLive ? (
             <span className="flex items-center gap-1 text-[10px] text-brand-system font-mono">
               Abrir <ExternalLink className="w-3 h-3" />

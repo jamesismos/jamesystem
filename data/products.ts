@@ -15,7 +15,6 @@ export interface Product {
   href: string
   openSource?: true
   repo?: string
-  donate?: string
 }
 
 export const products: Product[] = [
@@ -59,7 +58,7 @@ export const products: Product[] = [
     href: 'https://vigiadeposto.vercel.app',
     openSource: true,
     repo: 'https://github.com/jamesismos/vigia-de-posto',
-    donate: 'https://vigiadeposto.vercel.app#ajude',
+
   },
   {
     id: 'vai-comigo',
