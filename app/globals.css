@@ -10,6 +10,12 @@
     --color-brand: #0B3D91;
     --color-system: #0A84FF;
     --color-electric: #00C2FF;
+    --color-product-blue: #0B3D91;
+    --color-product-green: #059669;
+    --color-product-orange: #D97706;
+    --color-product-purple: #7C3AED;
+    --color-product-red: #DC2626;
+    --color-product-slate: #475569;
   }
 
   body {
