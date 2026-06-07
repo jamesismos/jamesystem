@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, JetBrains_Mono } from 'next/font/google'
+import { Inter, JetBrains_Mono, Orbitron } from 'next/font/google'
 import './globals.css'
 
 const inter = Inter({
@@ -14,26 +14,32 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 })
 
+const orbitron = Orbitron({
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+})
+
 export const metadata: Metadata = {
-  title: 'JAMESYSTEM — Software que resolve problemas reais',
+  title: 'JAMESYSTEM — Transformando processos em software',
   description:
-    'Aplicativos, sistemas e ferramentas desenvolvidos para empresas e pessoas pela JAMESYSTEM.',
+    'Produtos digitais para empresas modernas. ERP, automação, gestão e produtividade.',
   openGraph: {
     title: 'JAMESYSTEM',
-    description: 'Software que resolve problemas reais.',
+    description: 'Transformando processos em software.',
   },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang="pt-BR" className={`${inter.variable} ${jetbrainsMono.variable} ${orbitron.variable}`}>
       <body className="min-h-screen antialiased grid-bg relative">
         <div className="desktop-bg" />
-        <div className="fixed bottom-0 left-0 right-0 z-40 flex items-center justify-center">
-          <div className="mb-3 px-4 py-1.5 rounded-full glass border border-white/5 inline-flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-neon-blue animate-pulse shadow-[0_0_6px_rgba(0,212,255,0.6)]" />
-            <span className="text-[10px] font-mono text-slate-500 tracking-widest uppercase">JAMESYSTEM OS</span>
-            <span className="text-[10px] font-mono text-slate-600">v1.0</span>
+        <div className="fixed bottom-0 left-0 right-0 z-40 flex items-center justify-center pointer-events-none">
+          <div className="mb-4 px-4 py-1.5 rounded-full glass border border-surface-border inline-flex items-center gap-2.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-system animate-pulse" />
+            <span className="text-[10px] font-display text-text-muted tracking-[0.15em] uppercase">JAMESYSTEM</span>
+            <span className="text-[10px] font-mono text-text-muted/50">ecossistema</span>
           </div>
         </div>
         {children}

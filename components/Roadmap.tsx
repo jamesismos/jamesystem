@@ -9,46 +9,44 @@ const statusOrder: Record<string, number> = {
   Ideação: 5,
 }
 
+const statusColorMap: Record<string, string> = {
+  Production: 'text-brand-system',
+  Beta: 'text-product-orange',
+  MVP: 'text-product-green',
+  'Em Desenvolvimento': 'text-brand-electric',
+  Planejamento: 'text-product-purple',
+  Ideação: 'text-text-muted',
+}
+
 export function Roadmap() {
   const sorted = [...products].sort((a, b) => (statusOrder[a.status] ?? 99) - (statusOrder[b.status] ?? 99))
 
   return (
     <section id="roadmap" className="py-24 px-4 relative">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-3xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-            <span className="neon-text">{'//'}</span> Roadmap
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass border border-surface-border mb-4">
+            <span className="text-[10px] font-mono text-text-muted tracking-widest uppercase">Roadmap</span>
+          </div>
+          <h2 className="text-2xl md:text-3xl font-bold text-text-primary mb-3">
+            <span className="brand-text">{'//'}</span> Em Desenvolvimento
           </h2>
-          <p className="text-slate-400 text-sm">Acompanhe o desenvolvimento dos nossos produtos</p>
+          <p className="text-text-muted text-sm">Acompanhe o desenvolvimento dos nossos produtos</p>
         </div>
 
-        <div className="grid gap-3">
+        <div className="grid gap-2">
           {sorted.map((product) => (
             <div
               key={product.id}
-              className="glass rounded-lg px-5 py-4 flex items-center justify-between group hover:border-james-400/20 transition-colors"
+              className="glass rounded-lg px-5 py-4 flex items-center justify-between group hover:border-brand-corporate/30 transition-colors"
             >
               <div className="flex items-center gap-4">
-                <span className="text-sm font-bold text-white tracking-wide min-w-[140px]">
+                <span className="text-sm font-bold text-text-primary tracking-wide min-w-[140px]">
                   {product.name}
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <span
-                  className={`inline-block w-1.5 h-1.5 rounded-full ${product.statusColor.replace('text-', 'bg-')}`}
-                  style={
-                    product.statusColor === 'text-amber-400'
-                      ? { boxShadow: '0 0 6px rgba(251,191,36,0.5)' }
-                      : product.statusColor === 'text-cyan-400'
-                        ? { boxShadow: '0 0 6px rgba(34,211,238,0.5)' }
-                        : product.statusColor === 'text-green-400'
-                          ? { boxShadow: '0 0 6px rgba(74,222,128,0.5)' }
-                          : product.statusColor === 'text-purple-400'
-                            ? { boxShadow: '0 0 6px rgba(192,132,252,0.5)' }
-                            : {}
-                  }
-                />
-                <span className={`text-xs font-mono uppercase tracking-wider ${product.statusColor}`}>
+                <span className={`text-xs font-mono uppercase tracking-wider ${statusColorMap[product.status] || 'text-text-muted'}`}>
                   {product.status}
                 </span>
               </div>

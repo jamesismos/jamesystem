@@ -2,16 +2,15 @@
 
 import { useEffect, useRef } from 'react'
 import type { Product } from '@/data/products'
-import { Shield, Car, Clock, ShoppingCart, Wrench, Monitor, LayoutDashboard, X, ExternalLink } from 'lucide-react'
+import { Shield, Car, Clock, ShoppingCart, Wrench, LayoutDashboard, X, ExternalLink } from 'lucide-react'
 
-const iconMap = {
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   LayoutDashboard,
   Shield,
   Car,
   Clock,
   ShoppingCart,
   Wrench,
-  Monitor,
 }
 
 interface Props {
@@ -21,7 +20,7 @@ interface Props {
 
 export function ProductModal({ product, onClose }: Props) {
   const overlayRef = useRef<HTMLDivElement>(null)
-  const Icon = iconMap[product.icon as keyof typeof iconMap] || LayoutDashboard
+  const Icon = iconMap[product.icon] || LayoutDashboard
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -35,25 +34,34 @@ export function ProductModal({ product, onClose }: Props) {
     }
   }, [onClose])
 
+  const statusColorMap: Record<string, string> = {
+    Production: 'text-brand-system',
+    Beta: 'text-product-orange',
+    MVP: 'text-product-green',
+    'Em Desenvolvimento': 'text-brand-electric',
+    Planejamento: 'text-product-purple',
+    Ideação: 'text-text-muted',
+  }
+
   return (
     <div
       ref={overlayRef}
       className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fade-in"
       onClick={(e) => { if (e.target === overlayRef.current) onClose() }}
     >
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-surface/80 backdrop-blur-sm" />
 
       <div className="relative glass-strong rounded-lg w-full max-w-lg animate-scale-in shadow-window">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-white/5">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-surface-border/50">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center border border-white/5">
-              <Icon className="w-4 h-4 text-neon-blue" />
+            <div className={`w-8 h-8 rounded-lg ${product.productColor}/10 flex items-center justify-center border border-surface-border/50`}>
+              <Icon className={`w-4 h-4 ${product.productColor.replace('bg-', 'text-')}`} />
             </div>
-            <span className="text-sm font-bold text-white">{product.name}</span>
+            <span className="text-sm font-bold text-text-primary">{product.name}</span>
           </div>
           <button
             onClick={onClose}
-            className="w-7 h-7 rounded-md flex items-center justify-center hover:bg-white/5 text-slate-400 hover:text-white transition-colors"
+            className="w-7 h-7 rounded-md flex items-center justify-center hover:bg-surface-border/30 text-text-muted hover:text-text-primary transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
@@ -61,15 +69,15 @@ export function ProductModal({ product, onClose }: Props) {
 
         <div className="p-6 space-y-6">
           <div>
-            <p className="text-sm text-slate-300 leading-relaxed">{product.description}</p>
+            <p className="text-sm text-text-secondary leading-relaxed">{product.description}</p>
           </div>
 
           <div>
-            <h4 className="text-xs font-mono text-slate-500 uppercase tracking-wider mb-3">Funcionalidades</h4>
+            <h4 className="text-xs font-mono text-text-muted uppercase tracking-wider mb-3">Funcionalidades</h4>
             <div className="grid grid-cols-2 gap-2">
               {product.features.map((feature) => (
-                <div key={feature} className="flex items-center gap-2 text-sm text-slate-200">
-                  <span className="w-1.5 h-1.5 rounded-full bg-neon-blue shadow-[0_0_6px_rgba(0,212,255,0.5)]" />
+                <div key={feature} className="flex items-center gap-2 text-sm text-text-primary">
+                  <span className={`w-1.5 h-1.5 rounded-full ${product.productColor.replace('bg-', 'bg-')}/60`} />
                   {feature}
                 </div>
               ))}
@@ -77,21 +85,21 @@ export function ProductModal({ product, onClose }: Props) {
           </div>
 
           <div className="flex items-center gap-3 pt-2">
-            <span className={`text-xs font-mono uppercase tracking-wider ${product.statusColor}`}>
+            <span className={`text-xs font-mono uppercase tracking-wider ${statusColorMap[product.status] || 'text-text-muted'}`}>
               Status: {product.status}
             </span>
           </div>
         </div>
 
-        <div className="px-6 py-4 border-t border-white/5 flex justify-end">
+        <div className="px-6 py-4 border-t border-surface-border/50 flex justify-end">
           <a
             href={product.href}
             target={product.href !== '#' ? '_blank' : undefined}
             rel={product.href !== '#' ? 'noopener noreferrer' : undefined}
             className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 ${
               product.href !== '#'
-                ? 'bg-neon-blue/10 text-neon-blue border border-neon-blue/30 hover:bg-neon-blue/20 hover:border-neon-blue/60'
-                : 'bg-white/5 text-slate-400 border border-white/10 cursor-not-allowed'
+                ? 'bg-brand-system/10 text-brand-system border border-brand-system/30 hover:bg-brand-system/20 hover:border-brand-system/60'
+                : 'bg-surface-border/20 text-text-muted border border-surface-border/30 cursor-not-allowed'
             }`}
             onClick={(e) => { if (product.href === '#') e.preventDefault() }}
           >

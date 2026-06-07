@@ -13,13 +13,13 @@ export function ProductGrid() {
     <section id="produtos" className="py-24 px-4 relative">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass border border-white/5 mb-4">
-            <span className="text-[10px] font-mono text-slate-500 tracking-widest uppercase">Aplicativos</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass border border-surface-border mb-4">
+            <span className="text-[10px] font-mono text-text-muted tracking-widest uppercase">Produtos</span>
           </div>
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-            <span className="neon-text">{'//'}</span> Produtos
+          <h2 className="text-2xl md:text-3xl font-bold text-text-primary mb-3">
+            <span className="brand-text">{'//'}</span> Aplicativos
           </h2>
-          <p className="text-slate-400 text-sm">Clique em uma janela para explorar</p>
+          <p className="text-text-muted text-sm">Clique em uma janela para explorar</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
