@@ -13,6 +13,9 @@ export interface Product {
   gradient: string
   icon: string
   href: string
+  openSource?: true
+  repo?: string
+  donate?: string
 }
 
 export const products: Product[] = [
@@ -49,11 +52,14 @@ export const products: Product[] = [
     description: 'Plataforma para acompanhar preços, reputação e segurança de postos de combustível em todo o Brasil.',
     features: ['Mapa Colaborativo', 'Preços', 'Reputação', 'Denúncias'],
     status: 'Em Desenvolvimento',
-    category: 'enterprise',
+    category: 'app',
     productColor: 'bg-product-orange',
     gradient: 'from-product-orange/10 via-product-orange/5 to-transparent',
     icon: 'Shield',
     href: 'https://vigiadeposto.vercel.app',
+    openSource: true,
+    repo: 'https://github.com/jamesismos/vigia-de-posto',
+    donate: 'https://vigiadeposto.vercel.app#ajude',
   },
   {
     id: 'vai-comigo',

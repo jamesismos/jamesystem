@@ -1,7 +1,7 @@
 'use client'
 
 import type { Product } from '@/data/products'
-import { Shield, Car, Clock, ShoppingCart, Wrench, LayoutDashboard, Trophy, Brain, ExternalLink } from 'lucide-react'
+import { Shield, Car, Clock, ShoppingCart, Wrench, LayoutDashboard, Trophy, Brain, ExternalLink, Github, Heart } from 'lucide-react'
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   LayoutDashboard,
@@ -67,6 +67,10 @@ function ProductMockup({ product }: { product: Product }) {
   )
 }
 
+function stopProp(e: React.MouseEvent) {
+  e.stopPropagation()
+}
+
 export function ProductWindow({ product, index }: Props) {
   const Icon = iconMap[product.icon] || LayoutDashboard
   const isLive = product.href !== '#'
@@ -80,10 +84,18 @@ export function ProductWindow({ product, index }: Props) {
         <span className="ml-2 text-[10px] text-text-muted font-mono tracking-wider uppercase truncate">
           {product.name}
         </span>
-        {isLive && (
-          <span className="ml-auto flex items-center gap-1 text-[9px] text-text-muted/50 font-mono uppercase tracking-wider">
-            {product.href.replace('https://', '').split('/')[0]}
-          </span>
+        {product.openSource && (
+          <a
+            href={product.repo || '#'}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={stopProp}
+            className="ml-auto flex items-center gap-1 text-[9px] text-text-muted/50 hover:text-brand-system font-mono uppercase tracking-wider transition-colors"
+            title="Código aberto no GitHub"
+          >
+            <Github className="w-3 h-3" />
+            <span className="hidden sm:inline">Open Source</span>
+          </a>
         )}
       </div>
 
@@ -118,13 +130,28 @@ export function ProductWindow({ product, index }: Props) {
           <span className={`status-dot ${statusBgMap[product.status] || 'bg-text-muted'}`} />
           {product.status}
         </span>
-        {isLive ? (
-          <span className="flex items-center gap-1 text-[10px] text-brand-system font-mono">
-            Abrir <ExternalLink className="w-3 h-3" />
-          </span>
-        ) : (
-          <span className="text-[10px] text-text-muted/50 font-mono">Em breve</span>
-        )}
+        <span className="flex items-center gap-2">
+          {product.openSource && product.donate && (
+            <a
+              href={product.donate}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={stopProp}
+              className="flex items-center gap-1 text-[10px] text-product-red/70 hover:text-product-red font-mono transition-colors"
+              title="Apoiar o projeto"
+            >
+              <Heart className="w-3 h-3" />
+              Doar
+            </a>
+          )}
+          {isLive ? (
+            <span className="flex items-center gap-1 text-[10px] text-brand-system font-mono">
+              Abrir <ExternalLink className="w-3 h-3" />
+            </span>
+          ) : (
+            <span className="text-[10px] text-text-muted/50 font-mono">Em breve</span>
+          )}
+        </span>
       </div>
     </div>
   )
